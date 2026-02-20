@@ -1,0 +1,35 @@
+digraph {
+	rankdir=LR
+	A [label="
+        A
+        -------------
+        ES: 0 | EF: 3
+        LS: 0 | LF: 3
+        Slack: 0
+        " fillcolor=red shape=box style=filled]
+	B [label="
+        B
+        -------------
+        ES: 3 | EF: 7
+        LS: 3 | LF: 7
+        Slack: 0
+        " fillcolor=red shape=box style=filled]
+	C [label="
+        C
+        -------------
+        ES: 3 | EF: 5
+        LS: 5 | LF: 7
+        Slack: 2
+        " fillcolor=lightblue shape=box style=filled]
+	D [label="
+        D
+        -------------
+        ES: 7 | EF: 12
+        LS: 7 | LF: 12
+        Slack: 0
+        " fillcolor=red shape=box style=filled]
+	A -> B
+	A -> C
+	B -> D
+	C -> D
+}
