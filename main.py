@@ -98,7 +98,38 @@ def compute_cpm_and_export_pdf(input_path, output_path):
         LS[task] = LF[task] - duration[task]
 
     slack = {t: LS[t] - ES[t] for t in tasks}
-    critical = [t for t in tasks if slack[t] == 0]
+
+    # determine a single critical path to highlight
+    # we use two criteria in order:
+    # 1. highest total duration (should equal project_duration for true critical paths)
+    # 2. most nodes when durations tie
+    # dynamic programming on topo_order: track best path info to each task
+    # path_info: (total_duration, node_count, path_list)
+    best_info = {}
+    for task in topo_order:
+        dur = duration[task]
+        if not predecessors[task]:
+            best_info[task] = (dur, 1, [task])
+        else:
+            # pick predecessor with maximum (total_duration, node_count)
+            prev = max(
+                predecessors[task],
+                key=lambda p: best_info.get(p, (0, 0, []))[:2]
+            )
+            prev_dur, prev_count, prev_path = best_info.get(prev, (0, 0, []))
+            best_info[task] = (prev_dur + dur, prev_count + 1, prev_path + [task])
+    # evaluate terminal tasks to select the best path
+    end_tasks = [t for t in tasks if not successors[t]]
+    critical_path = []
+    best_tuple = (0, 0)  # (total_duration, node_count)
+    for t in end_tasks:
+        tot_dur, cnt, path = best_info.get(t, (0, 0, []))
+        candidate = (tot_dur, cnt)
+        if candidate > best_tuple:
+            best_tuple = candidate
+            critical_path = path
+
+    critical = critical_path
 
     # -------------------------
     # Generate Network Diagram
@@ -106,6 +137,7 @@ def compute_cpm_and_export_pdf(input_path, output_path):
     dot = Digraph(format="png")
     dot.attr(rankdir="LR")
 
+    critical_set = set(critical)
     for task in tasks:
         label = (
             f"{task}\n"
@@ -115,7 +147,8 @@ def compute_cpm_and_export_pdf(input_path, output_path):
             f"Slack: {slack[task]}"
         )
 
-        color = "red" if slack[task] == 0 else "lightblue"
+        # highlight only the selected critical path in red
+        color = "red" if task in critical_set else "lightblue"
 
         dot.node(
             task,

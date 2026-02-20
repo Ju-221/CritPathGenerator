@@ -4,6 +4,13 @@ Honestly screw making CPM manually, here's a python script for that.
 
 A simple Python utility to compute the Critical Path Method (CPM) for project schedules and generate a PDF report including a network diagram.
 
+This program follows CPM terminology from project management. When multiple critical paths exist, it selects one to highlight based on:
+
+1. **Total duration** (longest time to complete),
+2. **Node count** as a tiebreaker (more tasks preferred).
+
+Only the chosen path is colored red in the diagram.
+
 ## Features
 
 - Reads tasks from an Excel file (`input/project.xlsx` by default, see porject.xlsx.example)
