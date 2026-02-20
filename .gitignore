@@ -117,7 +117,9 @@ Thumbs.db
 
 # project-specific
 network_temp/
-output/
+output/*.pdf
+output/*.png
+output/*.jpg
 
 # Excel files created for input
 input/*.xlsx

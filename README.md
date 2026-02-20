@@ -1,5 +1,7 @@
 # CritPathGenerator
 
+Honestly screw making CPM manually, here's a python script for that.
+
 A simple Python utility to compute the Critical Path Method (CPM) for project schedules and generate a PDF report including a network diagram.
 
 ## Features
@@ -30,7 +32,7 @@ A simple Python utility to compute the Critical Path Method (CPM) for project sc
 
 ```
 main.py                # core logic
-input/                 # Excel input files
+input/                 # Excel input files - rename project.xlsx.example to see the expected input
 output/                # generated reports and diagrams
 network_temp/          # temporary graph files (ignored)
 requirements.txt       # dependencies
