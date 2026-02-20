@@ -6,7 +6,7 @@ A simple Python utility to compute the Critical Path Method (CPM) for project sc
 
 ## Features
 
-- Reads tasks from an Excel file (`input/project.xlsx` by default)
+- Reads tasks from an Excel file (`input/project.xlsx` by default, see porject.xlsx.example)
 - Calculates earliest and latest start/finish times, slack, and critical path
 - Produces a tabular report and network diagram in PDF format
 
