@@ -1,5 +1,7 @@
 # CritPathGenerator
 
+[![Python application](https://github.com/Ju-221/CritPathGenerator/actions/workflows/python-app.yml/badge.svg)](https://github.com/Ju-221/CritPathGenerator/actions/workflows/python-app.yml)
+
 Honestly screw making CPM manually, here's a python script for that.
 
 A simple Python utility to compute the Critical Path Method (CPM) for project schedules and generate a PDF report including a network diagram.
